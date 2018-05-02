@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UnityStandardAssets.Characters.ThirdPerson
@@ -75,8 +76,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			UpdateAnimator(move);
 		}
 
+        public void move(object desiredvelocity, bool v1, bool v2)
+        {
+            throw new NotImplementedException();
+        }
 
-		void ScaleCapsuleForCrouching(bool crouch)
+        void ScaleCapsuleForCrouching(bool crouch)
 		{
 			if (m_IsGrounded && crouch)
 			{

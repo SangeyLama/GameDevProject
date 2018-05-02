@@ -27,22 +27,31 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            //if (target != null)
-            //    agent.SetDestination(target.position);
+
 
             Vector3 targetDir = target.position - transform.position;
             float angle = Vector3.Angle(targetDir, transform.forward);
             float distance = targetDir.magnitude;
+            bool inVision = false;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, targetDir, out hit, Mathf.Infinity) && hit.transform == target.transform)
+            {
+                    inVision = true;
+            }
 
-            if (angle < fovWidthAngle && distance < fovDistance)
+            if (angle < fovWidthAngle && distance < fovDistance && inVision)
             {
                 Debug.Log(this.name + " sees you!");
                 Debug.DrawRay(transform.position, targetDir, Color.blue, 2);
+
+                if (target != null)
+                    agent.SetDestination(target.position);
+                if (agent.remainingDistance > agent.stoppingDistance)
+                    character.Move(agent.desiredVelocity, false, false);
+                else
+                    character.Move(Vector3.zero, false, false);
             }
-            //if (agent.remainingDistance > agent.stoppingDistance)
-            //    character.Move(agent.desiredVelocity, false, false);
-            //else
-            //    character.Move(Vector3.zero, false, false);
+
         }
 
 
