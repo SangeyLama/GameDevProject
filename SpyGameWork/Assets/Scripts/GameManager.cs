@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public bool isDisguised;
     public bool isAggressive;
     public bool isNaughty;
+    public bool GlobalAlert;
     public int suspicionMeter;
 
     void Awake () {

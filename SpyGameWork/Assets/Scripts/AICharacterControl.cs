@@ -14,7 +14,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public float fovDistance;
         private Animator playerAnimator;
         private Animator aiAnimator;
-        private Vector3 targetDirection;
+        public Vector3 targetDirection { get; set; }
 
 
 
@@ -33,27 +33,29 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            if(Seen() && !GameManager.instance.isDisguised)
-            {
-                aiAnimator.SetBool("raisedSuspicion", true);
-                Debug.Log("Hi Stephen!");
-            }
+            //if (Seen() && !GameManager.instance.isDisguised)
+            //{
+            //    if (!aiAnimator.GetBool("raisedSuspicion"))
+            //        aiAnimator.SetBool("raisedSuspicion", true);
+            //}
 
-            if (Seen() && GameManager.instance.isAggressive)
-            {
-                aiAnimator.SetBool("isAlerted", true);
-                Chase(targetDirection);
-                Debug.Log(this.name + " sees you!");
-                Debug.DrawRay(transform.position, targetDirection, Color.blue, 2);
-            }
 
-            if (Seen() && GameManager.instance.isNaughty)
-            {
-                Debug.Log(this.name + " thinks you're naughty... And should be punished");
-            }
+
+            //if (Seen() && GameManager.instance.isAggressive)
+            //{
+            //    aiAnimator.SetBool("isAlerted", true);
+            //    Chase(targetDirection);
+            //    Debug.Log(this.name + " sees you!");
+            //    Debug.DrawRay(transform.position, targetDirection, Color.blue, 2);
+            //}
+
+            //if (Seen() && GameManager.instance.isNaughty)
+            //{
+            //    Debug.Log(this.name + " thinks you're naughty... And should be punished");
+            //}
         }
 
-        private bool Seen()
+        public bool Seen()
         {
             targetDirection = target.position - transform.position;
             float angle = Vector3.Angle(targetDirection, transform.forward);
@@ -65,7 +67,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 inLineOfSight = true;
             }
 
-            if(inLineOfSight && angle < fovWidthAngle && distance < fovDistance)
+            if (inLineOfSight && angle < fovWidthAngle && distance < fovDistance)
             {
                 return true;
             }
@@ -75,7 +77,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
-        private void Chase(Vector3 targetDir)
+        public void Chase(Vector3 targetDir)
         {
             if (target != null)
                 agent.SetDestination(target.position);
