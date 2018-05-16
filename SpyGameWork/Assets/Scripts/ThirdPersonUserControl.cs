@@ -64,6 +64,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 GameManager.instance.isNaughty = true;
             }
+
+
         }
 
 
