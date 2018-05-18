@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour{
+public class DialogueManager : MonoBehaviour
+{
 
     public static DialogueManager instance = null;
+    public DialogueTrigger currentDialogueTrigger;
     public Text nameText;
     public Text dialogueText;
     public Button[] buttons;
+    public Button ContinueButton;
     public Animator animator;
     public bool midDialogue;
     public int noOfChoices;
 
     private Queue<string> sentences;
-        void Awake()
+    void Awake()
     {
         if (instance == null)
             instance = this;
@@ -41,26 +44,28 @@ public class DialogueManager : MonoBehaviour{
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(DialogueTrigger dialogueTrigger)
     {
+        var dialogue = dialogueTrigger.initialDialogue;
+        ContinueButton.gameObject.SetActive(true);
         midDialogue = true;
         if (dialogue.dialogueChoices.Count > 0)
         {
             noOfChoices = dialogue.dialogueChoices.Count;
             int i = 0;
-            foreach(string choice in dialogue.dialogueChoices)
+            foreach (string choice in dialogue.dialogueChoices)
             {
                 buttons[i].GetComponentInChildren<Text>().text = choice;
                 i++;
             }
         }
-            
+
 
         animator.SetBool("isOpen", true);
         nameText.text = dialogue.name;
         sentences.Clear();
 
-        foreach(string sentence in dialogue.sentences)
+        foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -72,11 +77,17 @@ public class DialogueManager : MonoBehaviour{
         for (int i = 0; i < noOfChoices; i++)
         {
             buttons[i].gameObject.SetActive(true);
+            ContinueButton.gameObject.SetActive(false);
         }
         noOfChoices = 0;
     }
 
-  
+    public void LoadDialogueChoice(int index)
+    {
+
+    }
+
+
     public void DisplayNextSentence()
     {
         if (sentences.Count == 0 && noOfChoices <= 0)
@@ -84,7 +95,7 @@ public class DialogueManager : MonoBehaviour{
             EndDialogue();
             return;
         }
-        else if(sentences.Count == 1 && noOfChoices > 0)
+        else if (sentences.Count == 1 && noOfChoices > 0)
             DisplayChoices();
         string sentence = sentences.Dequeue();
         StopAllCoroutines();
@@ -94,7 +105,7 @@ public class DialogueManager : MonoBehaviour{
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-        foreach(char letter in sentence.ToCharArray())
+        foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
             yield return null;
@@ -108,6 +119,6 @@ public class DialogueManager : MonoBehaviour{
         midDialogue = false;
         animator.SetBool("isOpen", false);
     }
-	
-	
+
+
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1329,7 +1329,15 @@ MonoBehaviour:
     dialogueChoices:
     - Hell Yes
     - Hell No
-  dialogueOptions: []
+  dialogueOptions:
+  - name: Bob
+    sentences:
+    - Great! Lets get to work!
+    dialogueChoices: []
+  - name: Bob
+    sentences:
+    - Well that sucks. See you later.
+    dialogueChoices: []
 --- !u!1 &411491132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4871,6 +4879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a17350234ee0f4d8d4a34b4d2bf4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDialogueTrigger: {fileID: 0}
   nameText: {fileID: 1219036410}
   dialogueText: {fileID: 1467161302}
   buttons:
@@ -4878,6 +4887,7 @@ MonoBehaviour:
   - {fileID: 788089172}
   - {fileID: 1571543626}
   - {fileID: 510324843}
+  ContinueButton: {fileID: 1644161864}
   animator: {fileID: 1838237172}
   midDialogue: 0
   noOfChoices: 0
@@ -5975,7 +5985,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1703063785}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1474426552}
+        m_MethodName: DisplayNextSentence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1703063785

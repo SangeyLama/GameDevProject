@@ -23,7 +23,7 @@ public class CivAICharacterControl : MonoBehaviour
         {
             dialogueTrigger.TriggerDialogue();
         }
-        else if(Input.GetKeyDown("f") && DialogueManager.instance.midDialogue)
+        else if(Input.GetKeyDown("f") && DialogueManager.instance.midDialogue && DialogueManager.instance.ContinueButton.IsActive())
         {
             DialogueManager.instance.DisplayNextSentence();
         }
